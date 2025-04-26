@@ -115,27 +115,115 @@ footer {
 /* the styles for the navigation menu */
 .navbar {
 	background-color: var(--primary-color);
-	& ul {
-		list-style-type: none;
-		margin: 0;
+	position: relative;
+	container-type: inline-size;
+}
+
+.menu-toggle {
+	display: none;
+}
+
+.menu-btn {
+	display: block;
+	color: var(--light);
+	font-size: 1.5em;
+	padding: 0.5em 0.75em;
+	cursor: pointer;
+}
+
+.navbar ul {
+	list-style-type: none;
+	margin: 0;
+	display: none; 
+}
+
+.navbar a {
+	display: block;
+	padding: .75em;
+	text-decoration: none;
+	color: var(--light);
+}
+
+.navbar a.current {
+	color: var(--accent-color);
+	font-weight: bold;
+}
+
+.navbar a.current:hover { 
+	font-style: normal; /* override hover effect */
+}
+
+/* Shows the menu when checkbox is checked */
+.menu-toggle:checked ~ ul.menu {
+	display: block;
+	position: absolute;
+	width: 100%;
+	z-index: 100;
+	background-color: var(--primary-color);
+}
+
+/* Change hamburger to X when menu is open */
+.menu-toggle:checked ~ .menu-btn {
+	content: "✕";
+}
+.menu-toggle:checked ~ .menu-btn::before {
+	content: "✕";
+}
+
+/* Should show Submenu indicators for small screens */
+.navbar li.has-submenu > a::after {
+	content: " ▶";
+	font-size: 0.8em;
+}
+
+/* Submenu styling for small screens */
+.navbar li.has-submenu:hover > ul.submenu {
+	display: block;
+	position: absolute;
+	left: 100%;
+	top: 0;
+	background-color: var(--primary-color);
+	z-index: 101;
+}
+
+.navbar ul.submenu {
+	display: none;
+	width: 200px;
+}
+
+/* Container query for larger screens */
+@container (min-width: 560px) {
+	.menu-btn {
+		display: none; /* Hides menu button */
 	}
-	& a {
+	
+	.navbar ul.menu {
+		display: flex;
+		flex-wrap: wrap;
+		justify-content: space-evenly;
+	}
+	
+	/* Ensures that the menu always displays horizontally at larger sizes, even if checkbox is checked */
+	.menu-toggle:checked ~ ul.menu {
+		display: flex;
+		position: static;
+	}
+	
+	/* Down triangle for submenus in horizontal layout */
+	.navbar li.has-submenu > a::after {
+		content: " ▼";
+		font-size: 0.8em;
+	}
+	
+	/* Positions the submenus below the parents in an horizontal layout */
+	.navbar li.has-submenu:hover > ul.submenu {
 		display: block;
-		padding: .75em;
-		text-decoration: none;
-		color: var(--light);
-	}
-	& a.current {
-		color: var(--accent-color);
-		font-weight: bold;
-	}
-	& a.current:hover { 
-		font-style: normal; /* override hover effect */
+		position: absolute;
+		left: 0;
+		top: 100%;
 	}
 }
 
 .menu {
-	display: flex;
-	flex-wrap: wrap;
-	justify-content: space-evenly;
+	display: none; 
 }
