@@ -59,6 +59,8 @@ header {
 main {
 	clear: left;
 	display: flex;
+	position: relative;
+	z-index: 1;
 }
 
 /* the styles for the section */
@@ -116,6 +118,7 @@ footer {
 .navbar {
 	background-color: var(--primary-color);
 	position: relative;
+	z-index: 10;
 	container-type: inline-size;
 }
 
@@ -226,4 +229,33 @@ footer {
 
 .menu {
 	display: none; 
+}
+.navbar ul.menu {
+	list-style-type: none;
+	margin: 0;
+	padding: 0;
+}
+
+.navbar ul.menu > li.has-submenu {
+	position: relative;
+}
+
+.navbar ul.menu > li.has-submenu > a {
+	display: block;
+	padding: .75em;
+	text-decoration: none;
+	color: var(--light);
+}
+
+.navbar ul.menu > li.has-submenu > ul.submenu {
+	display: none;
+	position: absolute;
+	left: 0;
+	top: 100%;
+	background-color: var(--primary-color);
+	z-index: 101;
+}
+
+.navbar ul.menu > li.has-submenu:hover > ul.submenu {
+	display: block;
 }
